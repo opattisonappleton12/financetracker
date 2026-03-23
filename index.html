@@ -3535,9 +3535,9 @@ function renderTrends() {
     return `<tr>
       <td>${formatMonthKey(m)}</td>
       <td>£${d.total.toFixed(0)}</td>
+      <td>${varStr}</td>
       <td>£${(d.cats['Pubs & Dining']||0).toFixed(0)}</td>
       <td>£${(d.cats['Food Delivery']||0).toFixed(0)}</td>
-      <td>${varStr}</td>
     </tr>`;
   }).join('');
 
@@ -3629,7 +3629,7 @@ function renderTrends() {
     <div class="chart-section">
       <div class="chart-card">
         <table class="trend-table">
-          <thead><tr><th>Month</th><th>Total</th><th>Dining</th><th>Delivery</th><th>VAR</th></tr></thead>
+          <thead><tr><th>Month</th><th>Total</th><th>VAR</th><th>Dining</th><th>Delivery</th></tr></thead>
           <tbody>${trendRows}</tbody>
         </table>
       </div>
