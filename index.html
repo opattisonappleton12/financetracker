@@ -337,6 +337,48 @@
   .yoy-diff.dn { background: var(--green-light); color: var(--green); }
   .yoy-diff.flat { background: var(--bg3); color: var(--text3); }
 
+  /* ── MAPPING ── */
+  .mapping-group { margin-bottom: 20px; }
+  .mapping-group-title { font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 1.5px; text-transform: uppercase; padding: 0 0 8px; }
+  .mapping-card { background: var(--bg2); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+  .mapping-row { display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); gap: 10px; cursor: pointer; transition: background 0.1s; }
+  .mapping-row:last-child { border-bottom: none; }
+  .mapping-row:active { background: var(--bg3); }
+  .mapping-row.unmapped { background: #fffbeb; border-left: 3px solid var(--amber); }
+  .mapping-row.unmapped:active { background: #fef3c7; }
+  .suggest-btn { background: var(--coral); color: white; border: none; border-radius: 8px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; flex-shrink: 0; white-space: nowrap; }
+  .suggest-btn:active { background: var(--coral2); }
+  .suggest-btn.loading { background: var(--text3); pointer-events: none; }
+  .ai-suggestion { background: linear-gradient(135deg, #fff0f0, #fff5f0); border: 1.5px solid var(--coral); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+  .ai-suggestion-label { font-size: 10px; font-weight: 700; color: var(--coral); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .ai-suggestion-cat { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .ai-suggestion-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .ai-suggestion-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .ai-suggestion-reason { font-size: 12px; color: var(--text2); margin-bottom: 12px; line-height: 1.5; }
+  .ai-suggestion-btns { display: flex; gap: 8px; }
+  .ai-confirm-btn { flex: 1; background: var(--coral); color: white; border: none; border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .ai-confirm-btn:active { background: var(--coral2); }
+  .ai-change-btn { flex: 1; background: var(--bg3); color: var(--text); border: none; border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .mapping-vendor { flex: 1; min-width: 0; }
+  .mapping-vendor-name { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mapping-vendor-txns { font-size: 11px; color: var(--text2); margin-top: 1px; }
+  .mapping-cat-badge { display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .mapping-chevron { color: var(--text3); font-size: 16px; flex-shrink: 0; }
+
+  /* Category picker modal */
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; display: flex; align-items: flex-end; }
+  .modal-sheet { background: var(--bg2); border-radius: 20px 20px 0 0; width: 100%; padding: 0 0 env(safe-area-inset-bottom, 16px); max-height: 85vh; overflow-y: auto; }
+  .modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 2px; margin: 12px auto 0; }
+  .modal-title { font-size: 16px; font-weight: 700; color: var(--text); padding: 16px 20px 8px; }
+  .modal-vendor { font-size: 12px; color: var(--text2); padding: 0 20px 14px; font-weight: 500; border-bottom: 1px solid var(--border); }
+  .cat-option { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; }
+  .cat-option:last-child { border-bottom: none; }
+  .cat-option:active { background: var(--bg3); }
+  .cat-option.selected { background: var(--bg3); }
+  .cat-option-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .cat-option-name { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
+  .cat-option-check { color: var(--coral); font-size: 18px; font-weight: 700; }
+
   /* ── VENDOR LIST ── */
   .vendor-card { background: var(--bg2); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
   .vendor-row { display: flex; align-items: center; padding: 13px 16px; border-bottom: 1px solid var(--border); gap: 12px; }
@@ -902,6 +944,17 @@
         </div>
       </div>
     </div>
+
+    <!-- MAPPING -->
+    <div class="view" id="view-mapping">
+      <div class="settings-view">
+        <div class="settings-section">
+          <h3>Vendor Mapping</h3>
+          <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Every vendor from your transactions, mapped to a category. Tap any row to change its category. New unmapped vendors are highlighted.</p>
+          <div id="mapping-list-container"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <nav class="bottom-nav">
@@ -917,6 +970,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/></svg>
       <span>Import</span>
     </button>
+    <button class="nav-tab" id="tab-mapping" onclick="switchTab('mapping')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+      <span>Mapping</span>
+    </button>
     <button class="nav-tab" id="tab-settings" onclick="switchTab('settings')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       <span>Settings</span>
@@ -929,32 +986,143 @@
 <script>
 // ── STATE ──
 let state = {
-  months: {},       // { "2026-03": { transactions: [...], totals: {...}, cats: {...} } }
+  months: {},
   budgets: { total: 2000, dining: 800, delivery: 150, transport: 300 },
   settings: { notifDay: 5, notifEnabled: false },
+  vendorMap: {},       // { "VENDOR NAME": "Category" }
+  pendingVendors: [],  // vendors imported but not yet mapped
 };
 
 // ── CATEGORIES ──
 const CATS = {
-  'Transport': { color: '#3b82f6', keywords: ['TFL TRAVEL','TRAINLINE','UBER TRIP','BOLT','LIME*RIDE','LIME*PASS','LIME*RIDE COST','SEATFROG','VOI TECH','EASYJET','TAXIWORLD','ZIPCAR','NTS CITY'] },
-  'Food Delivery': { color: '#f97316', keywords: ['DELIVEROO','UBER EATS','JUST EAT','ROOFOODS LTD','GOPUFF','GORILLAS','GETIR','AMAZON FRESH'] },
-  'Pubs & Dining': { color: '#ef4444', keywords: [] },
-  'Supermarkets': { color: '#10b981', keywords: ['SAINSBURY','TESCO','WAITROSE','MORRISONS','LIDL','ALDI','ASDA','CO-OP','MARKS AND SPEN','M&S WEST HAMPST','MARKS & SPENCER','WAITROSE'] },
-  'Fast Food': { color: '#f59e0b', keywords: ['PRET A MANGER','3CPAYMENT*PRET','MCDONALDS','MCDONALD','CHIPOTLE','ITSU','GDK ','BILTONG'] },
-  'Wine': { color: '#8b5cf6', keywords: ['WINEDROPS','HEDONISM','VAGABOND','RENEGADE URBAN WINERY','BBR.COM','SP BORGES','SP ONLINE WINE','INDIGO GREEN'] },
-  'Subscriptions': { color: '#06b6d4', keywords: ['UBER ONE','PRIME VIDEO','AMAZON PRIME','PAYPAL *APPLE.COM','APPLE.COM/BILL','THETIMES.CO.UK','ROOFOODS LTD','EMMA APP','PLAYSTATION','YOURSELFIRST'] },
-  'Shopping': { color: '#ec4899', keywords: ['AMAZON','AMZNMKTPLACE','AMZN MKTP','EBAY','ASOS','OMNES','12:51 LTD','GLOBALE','HARVEY NICHOLS','HM.COM','NEXT ONLINE','UNIQLO','ZARA','ITX UK','TIKTOK SHOP','BLOOMANDWILD','ARGOS','BOOKING.COM','AIRBNB','MATTRESSNEXTDAY','SP ','ROYAL OPERA','APOLLO VICTORIA'] },
-  'Interest': { color: '#dc2626', keywords: ['INTEREST CHARGE'] },
-  'Other': { color: '#94a3b8', keywords: [] }
+  'Pubs & Bars':           { color: '#ef4444', icon: '🍺' },
+  'Restaurants & Dining':  { color: '#f97316', icon: '🍽' },
+  'Food Delivery':         { color: '#fb923c', icon: '🛵' },
+  'Fast Food & Cafes':     { color: '#f59e0b', icon: '🍔' },
+  'Groceries':             { color: '#10b981', icon: '🛒' },
+  'Transport':             { color: '#3b82f6', icon: '🚇' },
+  'Wine & Spirits':        { color: '#8b5cf6', icon: '🍷' },
+  'Entertainment & Events':{ color: '#ec4899', icon: '🎭' },
+  'Travel & Hotels':       { color: '#06b6d4', icon: '✈️' },
+  'Shopping & Clothing':   { color: '#6366f1', icon: '🛍' },
+  'Health & Grooming':     { color: '#14b8a6', icon: '💊' },
+  'Subscriptions':         { color: '#0ea5e9', icon: '📱' },
+  'Interest & Fees':       { color: '#dc2626', icon: '💸' },
+  'Other':                 { color: '#94a3b8', icon: '📄' },
 };
 
+// Built-in keyword rules (fallback when no saved mapping exists)
+const KEYWORD_RULES = [
+  // Transport
+  { cat: 'Transport', keys: ['TFL TRAVEL','TRAINLINE','UBER TRIP','BOLT SERVICES','LIME*RIDE','LIME*PASS','LIME*RIDE COST','SEATFROG','VOI TECH','EASYJET','TAXIWORLD','ZIPCAR','NTS CITY','SHELL KILBURN','TEXACO','BUSH CENTRE FILLING'] },
+  // Food Delivery
+  { cat: 'Food Delivery', keys: ['DELIVEROO','UBER EATS','JUST EAT','ROOFOODS LTD','GOPUFF','GORILLAS','GETIR','AMAZON FRESH'] },
+  // Groceries
+  { cat: 'Groceries', keys: ['SAINSBURY','TESCO','WAITROSE','MORRISONS','LIDL','ALDI','ASDA','CO-OP','SPAR -','M&S WEST HAMPST','MARKS AND SPEN','MARKS & SPENCER'] },
+  // Fast Food & Cafes
+  { cat: 'Fast Food & Cafes', keys: ['PRET A MANGER','3CPAYMENT*PRET','MCDONALDS','MCDONALD','CHIPOTLE','ITSU','GDK ','BILTONG','PRESTO CAFE','GAIL','ICCO'] },
+  // Wine & Spirits
+  { cat: 'Wine & Spirits', keys: ['WINEDROPS','HEDONISM','VAGABOND','RENEGADE URBAN WINERY','BBR.COM','SP BORGES','SP ONLINE WINE','INDIGO GREEN'] },
+  // Subscriptions
+  { cat: 'Subscriptions', keys: ['UBER ONE','PRIME VIDEO','AMAZON PRIME','PAYPAL *APPLE.COM','APPLE.COM/BILL','THETIMES.CO.UK','EMMA APP','PLAYSTATION','YOURSELFIRST','BASENJI APPS','MUSCLE-BOOSTER'] },
+  // Travel & Hotels
+  { cat: 'Travel & Hotels', keys: ['AIRBNB','BOOKING.COM','TRIP.COM','HOTELSCOM','BOOKINGUK','BRITISH AIRWAYS','EASYJET','DOMAINE SKIABLE','MOLLIE=BROOK','MOLLIE=SOAK','WATERLOO HOTEL'] },
+  // Entertainment & Events
+  { cat: 'Entertainment & Events', keys: ['ASCOT ROYAL','HURLINGHAM','PRIORITY PASS','YOUNG VIC','ROYAL OPERA','APOLLO VICTORIA','PAYPAL *TICKETMASTE','DINES* SKATE','TEG MJR','EVERYMAN','TWICKENHAM EXPERIENCE','LYRIC HAMMERSMITH','KOKO','CURTAINS UP','APOLLO VICTORIA','MEMBERSHIP FEE','JOCKEYCLUB','FREEMASONS EVENT','GOFUNDME','MOVEMBERUK','ENTHUSE','JG *'] },
+  // Shopping & Clothing
+  { cat: 'Shopping & Clothing', keys: ['AMAZON','AMZNMKTPLACE','AMZN MKTP','EBAY','ASOS','OMNES','12:51 LTD','GLOBALE','HARVEY NICHOLS','HM.COM','NEXT ONLINE','UNIQLO','ZARA','ITX UK','TIKTOK SHOP','BLOOMANDWILD','ARGOS','MATTRESSNEXTDAY','TK MAXX','HORACE','HIPPOP','HAWES & CURTIS','JOHN LEWIS','SP RAFATRAD','SP OPCAO','TWEEDMANS','EASYFRAME','THEPRINTSPACE','CURRYS','PARCEL MONKEY'] },
+  // Health & Grooming
+  { cat: 'Health & Grooming', keys: ['BOOTS','KINGS PHARMACY','OPTICAL CENTER','SUMUP*TW BARBERS','TREATWELL','FRESHA','MYVITAMINS','SP MEDICHECKS','CHEMIST4U'] },
+  // Interest & Fees
+  { cat: 'Interest & Fees', keys: ['INTEREST CHARGE','MEMBERSHIP FEE'] },
+];
+
+// Vendor mappings: normalised name → category
+// Pre-seeded with known vendors from Oli's data
+const DEFAULT_VENDOR_MAPPINGS = {
+  'MAINPIE LIMITED': 'Pubs & Bars',
+  'GASTRONOME LTD': 'Pubs & Bars',
+  'MOSAIC GROUP': 'Pubs & Bars',
+  'CHEEKY-CHARGING': 'Pubs & Bars',
+  'MOUNTAIN': 'Restaurants & Dining',
+  'CKO*SUNDAY*SOMA SOHO': 'Restaurants & Dining',
+  'CKO*SUNDAY*SENOR CEVICH': 'Restaurants & Dining',
+  'CKO*SUNDAY*PLAZA KHAO G': 'Restaurants & Dining',
+  'DMN* SUNTHIRTEENCANTON': 'Restaurants & Dining',
+  'DMN* MCSONSVAUXHALL': 'Entertainment & Events',
+  '3CPAYMENT*DEAN STREET T': 'Restaurants & Dining',
+  '3CPAYMENT*209 HIDDEN BA': 'Restaurants & Dining',
+  '3CPAYMENT*SOHOHOUSE': 'Restaurants & Dining',
+  '3CPAYMENT*O2 SHEPHERDS': 'Entertainment & Events',
+  '3CPAYMENT*LONDON CITY A': 'Transport',
+  '3CPAYMENT*18412391 UK L': 'Pubs & Bars',
+  '3CPAYMENT*SSPUKPADDINGT': 'Fast Food & Cafes',
+  'SP INSERIF': 'Shopping & Clothing',
+  'SP WORLDOFBOOKS.COM': 'Shopping & Clothing',
+  'SP ENGLISH PEWTER': 'Shopping & Clothing',
+  'SP LOCK CO. HATTER': 'Shopping & Clothing',
+  'SP HEALTHY METAL': 'Shopping & Clothing',
+  'SP VORTEX AIR': 'Shopping & Clothing',
+  'SP NOTED AROMAS 17': 'Shopping & Clothing',
+  'SP ONLINE WINE CLUB': 'Wine & Spirits',
+  'WF* UK4336661624': 'Other',
+  'WF* UK4322086214': 'Other',
+  'PAYPAL *INTERNATION': 'Travel & Hotels',
+  'PAYPAL *GETTRANSFER': 'Transport',
+  'PAYPAL *AUBREIGH111': 'Other',
+  'PAYPAL *MAJORABBIE7': 'Other',
+  'PAYPAL *TERRYJUNIORCLAR': 'Other',
+  'PAYPAL *EBAY': 'Shopping & Clothing',
+  'PAYPAL *EBAY UK': 'Shopping & Clothing',
+  'PAYPAL *EBAY 800-456-32': 'Shopping & Clothing',
+  'PAYPAL *DUSK': 'Shopping & Clothing',
+  'PAYPAL *IKEALIMITED': 'Shopping & Clothing',
+  'PAYPAL *DECATHLONUK': 'Shopping & Clothing',
+  'PAYPAL *TICKETMASTE TIC': 'Entertainment & Events',
+  'PAYPAL *YTC LTD': 'Other',
+  'GRUUM.COM': 'Health & Grooming',
+  'OB* LUMIN': 'Health & Grooming',
+  'ZIPCAR UK LIMITED': 'Transport',
+  'SEATFROG OPS LIMITED': 'Transport',
+  'BOLT': 'Transport',
+  'CABVISION NETWORK': 'Transport',
+  'GROSVENOR CASINO LTD': 'Entertainment & Events',
+  'PREZOLA.COM': 'Shopping & Clothing',
+  'CASTLE STREET FLOWERS': 'Other',
+  'SECRETTS FARM SHOP': 'Groceries',
+  'WINEDROPS': 'Wine & Spirits',
+  'HEDONISM': 'Wine & Spirits',
+  'VAGABOND': 'Wine & Spirits',
+  'INDIGO GREEN': 'Wine & Spirits',
+  'BBR.COM BBR.COM': 'Wine & Spirits',
+  'CUV* MOTOR INSURANCE': 'Other',
+  'POST OFFICE': 'Other',
+};
+
+function normaliseVendor(desc) {
+  return desc.replace(/\s{2,}.*$/, '').trim();
+}
+
 function categorise(desc) {
-  const d = desc.toUpperCase();
-  for (const [cat, conf] of Object.entries(CATS)) {
-    if (cat === 'Pubs & Dining' || cat === 'Other') continue;
-    if (conf.keywords.some(k => d.includes(k))) return cat;
+  // 1. Check user-saved mappings first
+  const name = normaliseVendor(desc);
+  const saved = state.vendorMap || {};
+  if (saved[name]) return saved[name];
+  // 2. Check default seed mappings
+  if (DEFAULT_VENDOR_MAPPINGS[name]) return DEFAULT_VENDOR_MAPPINGS[name];
+  // 3. Partial match on defaults
+  for (const [key, cat] of Object.entries(DEFAULT_VENDOR_MAPPINGS)) {
+    if (name.toUpperCase().includes(key.toUpperCase()) || key.toUpperCase().includes(name.toUpperCase().substring(0,8))) {
+      // only do partial if name is long enough to be meaningful
+    }
   }
-  return 'Pubs & Dining';
+  // 4. Keyword rules
+  const d = desc.toUpperCase();
+  for (const rule of KEYWORD_RULES) {
+    if (rule.keys.some(k => d.includes(k))) return rule.cat;
+  }
+  // 5. Default
+  return 'Pubs & Bars';
 }
 
 // ── PERSISTENCE ──
@@ -3214,13 +3382,14 @@ function loadSampleData() {
 
 // ── NAVIGATION ──
 function switchTab(tab) {
-  ['overview','trends','import','settings'].forEach(t => {
+  ['overview','trends','import','mapping','settings'].forEach(t => {
     document.getElementById('view-' + t).classList.toggle('active', t === tab);
     document.getElementById('tab-' + t).classList.toggle('active', t === tab);
   });
   if (tab === 'overview') renderOverview();
   if (tab === 'trends') renderTrends();
   if (tab === 'settings') renderSettings();
+  if (tab === 'mapping') renderMapping();
 }
 
 // ── OVERVIEW ──
@@ -3677,6 +3846,165 @@ function renderTrends() {
   `;
 }
 
+
+// ── MAPPING ──
+function renderMapping() {
+  const container = document.getElementById('mapping-list-container');
+  if (!container) return;
+
+  const vendorData = {};
+  for (const [month, mData] of Object.entries(state.months)) {
+    for (const t of mData.transactions) {
+      const name = normaliseVendor(t.desc);
+      if (!vendorData[name]) vendorData[name] = { total: 0, txns: 0 };
+      vendorData[name].total += t.amount;
+      vendorData[name].txns += 1;
+    }
+  }
+
+  const entries = Object.entries(vendorData);
+  const unmapped = entries.filter(([n]) => !state.vendorMap[n] && !DEFAULT_VENDOR_MAPPINGS[n]).sort((a,b) => b[1].total - a[1].total);
+  const mapped = entries.filter(([n]) => state.vendorMap[n] || DEFAULT_VENDOR_MAPPINGS[n]).sort((a,b) => b[1].total - a[1].total);
+
+  const buildRows = (items, isUnmapped) => items.map(([name, data]) => {
+    const cat = categorise(name);
+    const catConf = CATS[cat] || CATS['Other'];
+    const badgeBg = catConf.color + '22';
+    const source = state.vendorMap[name] ? '' : DEFAULT_VENDOR_MAPPINGS[name] ? ' · seeded' : ' · auto';
+    const safeName = name.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    return `<div class="mapping-row ${isUnmapped ? 'unmapped' : ''}" onclick="openCatPicker('${safeName}')">
+      <div class="mapping-vendor">
+        <div class="mapping-vendor-name">${name}</div>
+        <div class="mapping-vendor-txns">${data.txns} txn${data.txns>1?'s':''} · £${data.total.toFixed(0)}${source}</div>
+      </div>
+      ${isUnmapped ? `<button class="suggest-btn" id="suggest-btn-${safeName.replace(/[^a-zA-Z0-9]/g,'_')}" onclick="event.stopPropagation();suggestCategory('${safeName}')">✦ Ask AI</button>` : `<div class="mapping-cat-badge" style="background:${badgeBg};color:${catConf.color}">${catConf.icon} ${cat}</div>`}
+      <div class="mapping-chevron">›</div>
+    </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    ${unmapped.length ? `
+    <div class="mapping-group">
+      <div class="mapping-group-title">⚠️ Needs mapping (${unmapped.length})</div>
+      <div id="unmapped-suggestions"></div>
+      <div class="mapping-card">${buildRows(unmapped, true)}</div>
+    </div>` : '<div style="background:var(--green-light);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--green);font-weight:600;margin-bottom:20px">✓ All vendors mapped</div>'}
+    <div class="mapping-group">
+      <div class="mapping-group-title">All vendors (${mapped.length})</div>
+      <div class="mapping-card">${buildRows(mapped, false)}</div>
+    </div>
+  `;
+}
+
+async function suggestCategory(vendorName) {
+  const btnId = 'suggest-btn-' + vendorName.replace(/[^a-zA-Z0-9]/g,'_');
+  const btn = document.getElementById(btnId);
+  if (btn) { btn.textContent = '…'; btn.classList.add('loading'); }
+
+  const catList = Object.keys(CATS).join(', ');
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 200,
+        messages: [{
+          role: 'user',
+          content: `You are categorising UK bank transactions. The vendor name from the statement is: "${vendorName}"
+
+Assign it to exactly one of these categories: ${catList}
+
+Respond with JSON only, no other text:
+{"category": "<category name>", "reason": "<one short sentence explaining why>"}`
+        }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content?.[0]?.text || '';
+    const parsed = JSON.parse(text.replace(/```json|```/g,'').trim());
+    const suggestedCat = parsed.category;
+    const reason = parsed.reason;
+
+    if (!CATS[suggestedCat]) throw new Error('Unknown category: ' + suggestedCat);
+
+    // Show suggestion UI above the unmapped list
+    showAiSuggestion(vendorName, suggestedCat, reason);
+
+  } catch(e) {
+    if (btn) { btn.textContent = '✦ Ask AI'; btn.classList.remove('loading'); }
+    showToast('Could not get suggestion — check connection');
+  }
+}
+
+function showAiSuggestion(vendorName, suggestedCat, reason) {
+  const container = document.getElementById('unmapped-suggestions');
+  if (!container) return;
+  const conf = CATS[suggestedCat] || CATS['Other'];
+  const safeName = vendorName.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+  const el = document.createElement('div');
+  el.className = 'ai-suggestion';
+  el.innerHTML = `
+    <div class="ai-suggestion-label">✦ Claude suggests</div>
+    <div style="font-size:12px;color:var(--text2);font-weight:600;margin-bottom:8px">${vendorName}</div>
+    <div class="ai-suggestion-cat">
+      <div class="ai-suggestion-icon" style="background:${conf.color}22">${conf.icon}</div>
+      <div class="ai-suggestion-name">${suggestedCat}</div>
+    </div>
+    <div class="ai-suggestion-reason">${reason}</div>
+    <div class="ai-suggestion-btns">
+      <button class="ai-confirm-btn" onclick="setVendorCat('${safeName}', '${suggestedCat}')">✓ Confirm</button>
+      <button class="ai-change-btn" onclick="openCatPicker('${safeName}')">Change</button>
+    </div>
+  `;
+  container.prepend(el);
+}
+
+function openCatPicker(vendorName) {
+  const current = categorise(vendorName);
+  const options = Object.entries(CATS).map(([cat, conf]) => {
+    const safeName = vendorName.replace(/'/g, "\\'");
+    return `<div class="cat-option ${cat === current ? 'selected' : ''}" onclick="setVendorCat('${safeName}', '${cat}')">
+      <div class="cat-option-icon" style="background:${conf.color}22">${conf.icon}</div>
+      <div class="cat-option-name">${cat}</div>
+      ${cat === current ? '<div class="cat-option-check">✓</div>' : ''}
+    </div>`;
+  }).join('');
+
+  const modal = document.createElement('div');
+  modal.className = 'modal-backdrop';
+  modal.id = 'cat-picker-modal';
+  modal.innerHTML = `
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title">Assign category</div>
+      <div class="modal-vendor">${vendorName}</div>
+      ${options}
+    </div>
+  `;
+  modal.addEventListener('click', e => { if (e.target === modal) closeCatPicker(); });
+  document.body.appendChild(modal);
+}
+
+function closeCatPicker() {
+  const m = document.getElementById('cat-picker-modal');
+  if (m) m.remove();
+}
+
+function setVendorCat(vendorName, cat) {
+  state.vendorMap[vendorName] = cat;
+  saveState();
+  for (const [key, mData] of Object.entries(state.months)) {
+    state.months[key] = computeMonth(mData.raw, key);
+  }
+  saveState();
+  closeCatPicker();
+  renderMapping();
+  showToast(`✓ ${vendorName} → ${cat}`);
+}
 
 // ── SETTINGS ──
 function renderSettings() {
